@@ -135,7 +135,53 @@ print(fruits)  # 输出: ("apple", "banana", "orange", "pear")
 
 
 
-### 3）集合
+### 3）集合set
+
+集合的定义
+
+> 集合是一组无序、不重复的的数据集合
+>
+> 集合中的元素是唯一的
+>
+> 集合中的元素的数据类型可以不同，但必须是可哈希的数据类型
+
+```python
+empty_set1 = {}  # 定于一个空集合，实际上创建的是一个空字典
+empty_set2 = set()  # 定义一个空集合
+my_set1 = {1, 2, 3, "a", "b", "c"}  # 定义一个集合
+my_set2 = set([1, 2, 3, "a", "b", "C"])  # 定义一个集合
+try:
+	error_set = {[1, 2], [3, 4], [5, 6]}  # 集合中元素的类型必须是可哈希的，不然会报TypeError。列表list是不可哈希的数据类型
+except TypeError:
+print("捕获到TypeError")
+```
+
+集合的常用方法
+
+```python
+# 添加元素
+my_set.add(4)
+
+# 删除元素：使用 remove() 方法删除集合中的元素。如果元素不存在，会引发 KeyError。如果希望避免引发异常，可以使用 discard() 方法
+my_set.remove(3)
+my_set.discard(5)
+
+# 清空集合：使用 clear() 方法清空集合中的所有元素
+my_set.clear()
+
+# 集合支持各种集合操作，如并集、交集和差集。这些操作可以使用方法或运算符进行。
+set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+
+union_set = set1.union(set2) # 并集
+union_set = set1 | set2 # 或者使用运算符
+
+intersection_set = set1.intersection(set2) # 交集
+intersection_set = set1 & set2 # 或者使用运算符
+
+difference_set = set1.difference(set2) # 差集
+difference_set = set1 - set2 # 或者使用运算符
+```
 
 
 
