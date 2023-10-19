@@ -91,9 +91,46 @@ res = my_list.pop() # 空参则移除列表最后一个元素
 > 元祖是一个有序、不可变的数据结构。
 >
 > 元祖中的元素可以是不同的数据类型
+>
+> 元祖支持嵌套
 
+```python
+my_tuple = (1,2,3) # 定义一个元祖
+empty_tuple = () # 定义一个空元祖
+single_tupel = (1,) # 定义一个单个数据的元祖
+nums_tuple = (1,2,3,"a","b","c") # 定义一个含有不同数据类型的元祖
+nested_tuple = ((1, 2), (3, 4), (5, 6)) # 定义一个嵌套的元祖
 ```
 
+元祖的索引
+
+> 元祖的索引从0开始，并且支持反向索引，反向索引从-1开始
+
+```python
+my_tuple = (1,2,3,"a","b","c")
+print(f"第1个索引对应的值为：{nums_tuple[0]}")
+print(f"最后1个索引对应的值为：{nums_tuple[-1]}")
+```
+
+元祖的常用方法
+
+```python
+# count(value)：返回指定元素在元组中出现的次数。
+fruits = ("apple", "banana", "orange", "apple")
+count = fruits.count("apple")
+print(count)  # 输出: 2
+
+# index(value)：返回指定元素在元组中首次出现的索引。
+fruits = ("apple", "banana", "orange", "apple")
+index = fruits.index("banana")
+print(index)  # 输出: 1
+
+# list(),转换为列表。tuple(),转换为元祖
+fruits = ("apple", "banana", "orange")
+fruits_list = list(fruits)  # 转换为列表
+fruits_list.append("pear")  # 修改列表，添加新元素
+fruits = tuple(fruits_list)  # 转换回元组
+print(fruits)  # 输出: ("apple", "banana", "orange", "pear")
 ```
 
 
