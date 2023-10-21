@@ -576,3 +576,153 @@ my_bytearray.decode('utf-8')  # 将字节数组转换为字符串
 - strings字符串，单类型、字符、不可变
 - bytearray字节数组，单类型、字节、可变
 
+
+
+## 6.代码结构
+
+python常见的代码结构通常包括模块Module、函数Function、条件语句Conditional Statements、循环语句Loop Statements、异常处理Exception Handling
+
+
+
+### 1）模块Module
+
+模块的定义
+
+> 模块就是一个python文件，包含一组相关的函数、变量和类。
+>
+> 模块可以被导入到其它python文件中，便于重复使用代码
+
+```python
+# 模块示例（module_example.py）
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+if __name__ == "__main__":
+    # 在模块中编写的测试代码
+    result = add(5, 3)
+    print(result)
+```
+
+补充：
+
+> `if __name__ == '__main__':` 是一个常见的Python编程约定，用于确定一个脚本文件是否正在直接运行，还是被作为模块导入到其他脚本中。这个约定通常用于在一个Python文件中定义可执行代码和模块导入时执行的代码，以便将脚本文件和模块导入分开。
+>
+> 当一个Python脚本文件被执行时，Python解释器会设置特殊变量`__name__`的值。如果脚本文件是直接执行的，`__name__` 的值将被设置为`'__main__'`。如果脚本文件被导入为一个模块，`__name__` 的值将被设置为模块的名称。
+>
+> 因此，`if __name__ == '__main__':` 的目的是检查 `__name__` 的值是否等于 `'__main__'`，如果条件成立，就执行其后的代码块。这意味着这部分代码仅在脚本文件直接运行时才会执行，而在被导入为模块时不会执行。
+
+
+
+### 2）函数Function
+
+函数的定义
+
+> 函数是一段可重复使用的代码块，接受参数并执行特定任务。函数通常用于模块化代码，提高可读性和维护性。
+
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+
+# 调用函数
+greet("Alice")
+```
+
+
+
+### 3）条件语句Conditional Statements
+
+条件语句的定义
+
+> 条件语句用于根据条件执行不同的代码块，从而控制程序的流程。
+
+```python
+''' 模板
+if condition:
+    # 当条件为True时执行
+    pass
+elif another_condition:
+    # 当第一个条件为False，但第二个条件为True时执行
+    pass
+else:
+    # 当所有条件都为False时执行
+    pass
+'''
+
+''' 示例如下：猜数字游戏。设定一个答案，根据输入的数字和答案对比，打印不同的结果 '''
+res = 10
+num = input('请输入你的数字：')
+num = int(num) # 是否记得前面提过的，input()函数接收的数据类型默认是str，想要进行比较的话，需要转为int类型噢
+if num > 10:
+	print('你输入的数字比答案大了')
+elif num < 10:
+    print('你输入的数字比答案小了')
+else:
+    print('恭喜你，答案正确')
+```
+
+
+
+### 4）循环语句Loop Statements
+
+循环语句的定义
+
+> 循环语句用于多次执行一段代码块
+>
+> `python`中循环有两种结构，for循环和while循环
+>
+> `for`循环常用于迭代（遍历）可迭代对象（list、set、tuple、dictionary、str等）。工作原理是依次将可迭代对象中的每个元素赋值给循环变量，直至遍历完可迭代对象中的所有元素。循环遍历过程中，可以通过break和continue两种方式来控制循环的行为。break是结束整个for循环，continue是跳过当前for循环的这一次迭代
+>
+> `while` 循环是一种条件控制的循环结构，它会反复执行一组语句，直到条件变为 `False`。常用于需要动态循环次数的的迭代。迭代过程中，也可以像`for`循环一样，使用break和continue语句来控制循环行为。
+
+```python
+''' for循环 '''
+fans =  ['ikun01', 'ikun02', 'ikun03']
+for fan in fans:
+    print(fan)
+# 运行结果是依次打印ikun01，ikun02，ikun03
+for fan in fans:
+    if fan == 'ikun02':
+        break # 结束当前for循环
+    else:
+        print(fan)
+# 运行结果为仅打印ikun01。因为当if条件成立后，for循环结束了
+
+for fan in fans:
+    if fan == 'ikun02':
+        continue # 跳过当前这一次迭代，进入下一次迭代
+    else:
+        print(fan)
+# 运行结果为依次打印ikun01，ikun03。因为当迭代到fan = ikun02时，触发了if条件，跳过了本次迭代。
+```
+
+```python
+''' while循环 '''
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+# 运行结果为01234
+```
+
+
+
+### 5）异常处理Exception Handling
+
+异常处理的定义
+
+> 异常处理用于处理代码执行中可能出现的异常情况。`try`、`except`、`finally`关键字用于捕获和处理异常。
+>
+> `try`代码块是可能出现的异常，`except`代码块是指定`try`代码块中出现的某一异常的处理逻辑，`finally`代码块是必然执行的逻辑，不论`try`代码块中是否出现异常
+
+```python
+try:
+    result = 10 / 0  # 会引发ZeroDivisionError异常
+except ZeroDivisionError:
+    print("除数不允许为0")
+finally:
+    print("异常结束")
+```
+
