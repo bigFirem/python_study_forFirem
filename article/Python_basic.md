@@ -726,3 +726,145 @@ finally:
     print("异常结束")
 ```
 
+
+
+## 7.文件操作
+
+### 1）打开文件
+
+`python`提供了一个内置的`open()`函数，通过传入`文件名参数`和`打开模式参数`。
+
+`文件名参数`可以包括文件的相对路径或绝对路径，如果仅传入文件名，默认从当前项目路径寻找。
+
+`打开模式参数`包括6种。分别为
+
+- `"r"`：读取模式（默认）。用于打开文件以供读取，如果文件不存在会引发异常。
+- `"w"`：写入模式。用于打开文件以供写入，如果文件存在，会截断文件内容；如果文件不存在，会创建新文件。
+- `"a"`：追加模式。用于打开文件以供追加数据，如果文件不存在，会创建新文件。
+- `"x"`：独占创建模式。用于创建新文件，如果文件已存在，则引发错误。
+- `"b"`：二进制模式。用于以二进制模式打开文件，例如读取或写入二进制数据。
+- `"t"`：文本模式（默认）。用于以文本模式打开文件，适用于读取或写入文本数据。
+
+```python
+# 打开一个文本文件进行读取
+file = open("example.txt", "r")
+
+# 打开一个文本文件进行写入（如果文件不存在，则创建）
+file = open("example.txt", "w")
+```
+
+
+
+`python`中的标准库提供了一个os模块，可以使用这个模块中的功能来检查文件是否存在
+
+```python
+import os  # 引入os模块
+
+# 查看当前文件目录
+cur_directory = os.getcwd()
+    print(f"cur_directory is {cur_directory}")
+    
+# 检查文件是否存在
+if os.path.exists("file_to_check.txt"):
+    print("文件存在")
+else:
+    print("文件不存在")
+```
+
+
+
+### 2）读取文件
+
+`python`提供了3个内置的函数来读取文件内容，分别是
+
+- read()：一次性读取整个文件的内容，并将其存储为一个字符串
+- readLine()：逐行读取文件的内容，以字符串返回，每次调用会返回文件中的下一行
+- readLines()：将文件中的每一行以字符串返回，然后存储在一个列表中
+
+```python
+# read()
+with open("example.txt", "r") as file:
+    file_content = file.read()
+    print(file_content)
+
+# readLine()
+with open("example.txt", "r") as file:
+    line = file.readline()
+    while line:
+        print(line)
+        line = file.readline()
+
+# readLines()
+with open("example.txt", "r") as file:
+    lines = file.readlines()
+    for line in lines:
+        print(line)
+```
+
+
+
+### 3）写入文件
+
+`python`提供了两个函数来写入，传入参数为写入内容
+
+- `write()`：写入指定的传入的数据
+- `writelines()`：一次性写入多行数据，传入参数为一个list集合
+
+```python
+# write()
+with open("output.txt", "w") as file:
+    file.write("Hello, World!")
+
+# writes()
+lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
+with open("output.txt", "w") as file:
+    file.writelines(lines)
+```
+
+
+
+### 4）关闭文件
+
+`python`中，打开文件执行完文件操作后需要关闭已打开的文件，有两种方式
+
+- 使用显示调用`close()`方法来关闭文件
+- 使用`with`语句，在代码块中完成对文件的操作，最后隐式调用`close()`方法
+
+```python
+# 显示调用close()
+file = open("example.txt", "r")
+content = file.read()
+file.close()  # 手动关闭文件
+
+# 使用with，隐式调用close()
+with open("example.txt", "r") as file:
+    content = file.read()
+```
+
+补充
+
+> 在使用 `with` 语句时，无需显式调用 `close()`，这是因为 `with` 语句会自动处理关闭文件的操作，即使在发生异常时也会执行。这有助于确保文件被正确关闭，不会产生资源泄漏。最佳实践是在需要打开文件时始终使用 `with` 语句。
+
+
+
+### 5）复制、删除、重命名文件
+
+对于复制、删除、重命名三个文件操作，可以使用`python`标准库中的`shutil`模块来实现
+
+```python
+import shutil # 引入shutil模块
+
+# 复制文件
+shutil.copy("source.txt", "destination.txt")
+
+# 删除文件
+os.remove("file_to_delete.txt")
+
+# 重命名文件
+os.rename("old_name.txt", "new_name.txt")
+
+```
+
+补充
+
+> 在执行这些操作时，出现异常的可能性较大，例如文件不存在或文件权限不足等。因此在执行这些操作时，最好提前进行错误处理
