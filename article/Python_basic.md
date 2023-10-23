@@ -621,13 +621,20 @@ if __name__ == "__main__":
 函数的定义
 
 > 函数是一段可重复使用的代码块，接受参数并执行特定任务。函数通常用于模块化代码，提高可读性和维护性。
+>
+> 函数的接收参数，可以是固定的，也可以是动态的。
 
 ```python
 def greet(name):
     print(f"Hello, {name}!")
 
+def dynamic_greet(*names):
+    for name in names:
+        print(f"{name}")
 # 调用函数
 greet("Alice")
+my_list = ['ikun01', 'ikun02', 'ikun03']
+dynamic_greet(*my_list)
 ```
 
 
@@ -868,3 +875,212 @@ os.rename("old_name.txt", "new_name.txt")
 补充
 
 > 在执行这些操作时，出现异常的可能性较大，例如文件不存在或文件权限不足等。因此在执行这些操作时，最好提前进行错误处理
+
+
+
+## 8.面向对象
+
+在`Python`中，面向对象编程`（Object-Oriented Programming，OOP）`是一种重要的编程范例，它允许您将数据和行为封装到对象中，以更好地组织和管理代码。
+
+
+
+### 1）类和对象
+
+- **类（Class）**：类是定义对象的模板或蓝图。它包含了对象的属性（也称为数据成员）和方法（也称为函数成员）。
+- **对象（Object）**：对象是类的实例，它具有类定义的属性和方法。您可以创建多个对象来表示不同的实体。
+
+```python
+''' 定义类 
+class 类名:
+	# 属性
+	属性名 = 属性值
+	...
+	# 方法
+	def 方法名(参数):
+		return "sing" # 返回值
+	...
+'''
+class Person:
+    # 属性
+    name = 'kun'
+    age = 25
+    # 方法
+    def sing(self):
+		return "sing"
+    
+	def jump(self):
+		return "jump"
+    
+    def rap(self):
+		return "rap"
+    
+    def basketball(self):
+        return "basketball"
+
+ # 类可以定义一个初始化方法__init__()，完成创建对象时对某些参数进行初始化
+class Person_init:
+    # 初始化方法
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    # 方法
+    def sing(self):
+		return "sing"
+    
+	def jump(self):
+		return "jump"
+    
+    def rap(self):
+		return "rap"
+    
+    def basketball(self):
+        return "basketball"
+```
+
+```python
+''' 创建对象 '''
+person1 = person()
+person2: Person = Person() # 指定创建的person类型为Person
+person2 = person_init("ikun", 250)
+
+# 通过创建的对象，可以方法对象的属性和方法
+print(person1.name)
+print(person1.sing())
+```
+
+补充
+
+> 在`python`中，类中的属性和方法默认是公开的，如果想要指定某个方法或属性为私有，可以将属性名或方法名以`__`开头，这样就能设置为私有
+
+
+
+### 2）继承和多态
+
+**继承**（重写）
+
+> 继承是面向对象编程中的核心概念，它允许一个类（子类）继承另一个类（父类）的属性和方法。子类可以重用父类的功能，并且还可以添加自己的属性和方法。
+
+```python
+class Animal:
+    def speak(self):
+        return "Animal speaks"
+
+class Dog(Animal):
+    def speak(self):
+        return "Dog barks"
+
+dog = Dog()
+print(dog.speak())  # 输出: "Dog barks"
+```
+
+在这个示例中，`Dog` 类继承了 `Animal` 类，并重写了 `speak` 方法以提供不同的实现。这是继承的一个示例，其中子类继承了父类的方法并重写，进行了定制。
+
+
+
+**多态**
+
+> 多态是面向对象编程中的另一个关键概念，它允许不同类的对象使用相同的方法名称，从而实现更灵活的代码。不同的对象可以根据其类型调用相同名称的方法，这称为动态绑定。
+>
+> 同时，多态的存在，可以使用父类的引用来引用子类的对象
+
+```python
+class Animal:
+    def speak(self):
+        return "Animal speaks"
+
+class Dog(Animal):
+    def speak(self):
+        return "Dog barks"
+    
+def animal_speak(animal):
+    return animal.speak()
+
+animal: Animal = Animal()
+dog: Dog = Dog()
+
+print(animal_speak(animal))  # 输出: "Animal speaks"
+print(animal_speak(dog))     # 输出: "Dog barks"
+```
+
+
+
+**抽象类**
+
+> 在Python中，可以使用抽象基类（Abstract Base Class，简称ABC）来定义抽象类。抽象类是不能实例化的类，通常用作其他类的基类，用于定义规范和接口，要求其子类实现特定的方法。Python的 `abc` 模块提供了抽象基类的支持。
+
+```python
+from abc import ABC, abstractmethod # 从abc模块导入ABC类和abstractmethod方法
+
+class Animal(ABC):
+    @abstractmethod
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    def speak(self):
+        return "Dog barks"
+
+# 无法实例化抽象类
+# animal = Animal()  # 这将引发TypeError
+
+dog = Dog()
+print(dog.speak())  # 输出: "Dog barks"
+
+```
+
+- 抽象类使用 `ABC` 类作为基类。
+- `@abstractmethod` 装饰器用于标记抽象方法，告诉子类它必须实现该方法。
+- 抽象类不能实例化，但可以用作其他类的基类。
+- 子类必须实现抽象类中定义的抽象方法。
+- 抽象类可以有普通方法，普通方法可以被子类继承或重写
+
+### 
+
+### 3）方法的重载、重写
+
+**重载**
+
+> 重载的意思就是，在一个类中，可以有多个方法名相同但参数列表不同的方法。
+>
+> python和Java等语言不同，python不支持方法的重载。因为Python是一种动态类型语言，方法的参数类型和数量可以在运行时发生变化。
+>
+> 但是，python提供了一种替代方案，即使用默认参数值和可变参数来模拟方法的重载
+
+```python
+# 模拟重载
+class MathOperations:
+    def add(self, a, b, c=0):
+        return a + b + c
+
+# 创建一个对象
+math_obj = MathOperations()
+
+# 调用方法，可以接受不同数量的参数
+result1 = math_obj.add(1, 2)
+result2 = math_obj.add(1, 2, 3)
+
+print(result1)  # 输出: 3
+print(result2)  # 输出: 6
+```
+
+在上面的示例中，`add` 方法接受一个到三个参数，并根据参数的数量来执行不同的操作。这种方法可以模拟方法的重载，但实际上只是一个方法，根据传递的参数自动调整行为。
+
+
+
+**重写**
+
+> 重写的意思就是，子类对父类方法的重新编写
+
+```python
+class Animal:
+    def speak(self):
+        return "Animal speaks"
+
+class Dog(Animal):
+    def speak(self):
+        return "Dog barks"
+
+dog = Dog()
+print(dog.speak())  # 输出: "Dog barks"
+```
+
