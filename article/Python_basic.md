@@ -1,14 +1,38 @@
 # Python基础
 
-## 
+
+
+## 前言
+
+博主本人之前学习的方向是Java后端开发，因为一些原因，打算从转到测试方向，由于`Python`在测试方向上的广泛应用，于是开始学习`Python`，此贴作为和大家的一个交流，如果有错误之处，请多多指教。
+
+
 
 ## 1.python语法
 
-python的语法和C/C++、Java最明显的不同的一点就是，python使用缩进来替代大括号表示代码块，强调了代码的可读性。
+先来个经典开局：输出hello the world ！
+
+```python
+print("hello the world")
+```
+
+再将它多元化一点
+
+```python
+class Greeting:
+    message = "Hello, the world"  # 类变量
+
+    def say_hello(self):
+        print(self.message)  # 输出消息
+```
+
+
+
+由上面两个例子可以看出，python的语法和C/C++、Java最明显的不同的一点就是，python使用缩进来替代大括号表示代码块，强调了代码的可读性。
 
 同时，python和Java一样，是一门强类型的语言，不同的是python不需要显示的声明变量的数据类型。
 
-并且，python是一门解释性语言，代码不需要显示编译，可以直接运行
+并且，python是一门解释性语言，代码不需要显示编译，可以直接运行。
 
 
 
@@ -638,6 +662,32 @@ dynamic_greet(*my_list)
 ```
 
 
+
+匿名函数
+
+> 也称为lambda函数，是一种在Python中创建小型、无需显式命名的函数的方式。
+
+```python
+# 基本语法
+lambda [函数参数]:[函数的返回值]
+
+# 例子
+add = lambda x,y: x + y
+print(add(1,2)) # 结果为3
+
+# lambda函数作为列表排序的键函数
+students = [
+    {"name": "Alice", "age": 25},
+    {"name": "Bob", "age": 22},
+    {"name": "Charlie", "age": 30}
+]
+
+students.sort(key=lambda student: student["age"])
+```
+
+
+
+3）条件语句Conditional Statements
 
 ### 3）条件语句Conditional Statements
 
